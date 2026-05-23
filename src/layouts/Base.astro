@@ -1,0 +1,56 @@
+---
+// Base layout - SEO optimized
+const { title, description } = Astro.props;
+const siteName = "AI Trading Tools";
+const fullTitle = title ? `${title} | ${siteName}` : siteName;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{fullTitle}</title>
+  <meta name="description" content={description || "Expert reviews of AI trading tools, stock analysis software, and algorithmic trading platforms. Honest comparisons for retail traders."}>
+  <meta name="robots" content="index, follow">
+  <link rel="sitemap" href="/sitemap-index.xml">
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href}>
+  <link rel="stylesheet" href="/styles/global.css">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content={fullTitle}>
+  <meta property="og:description" content={description || "Expert reviews of AI trading tools and platforms"}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href}>
+
+  <!-- Schema: WebSite -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": siteName,
+    "url": Astro.site,
+  })}></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="logo">AI Trading Tools</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>AI Trading Tools &copy; 2026. Affiliate disclosure: We may earn commissions from links on this site.</p>
+    </div>
+  </footer>
+</body>
+</html>

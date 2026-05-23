@@ -1,0 +1,37 @@
+---
+// Blog post layout
+import Base from './Base.astro';
+const { frontmatter } = Astro.props;
+const { title, description, date, category } = frontmatter;
+---
+
+<Base title={title} description={description}>
+  <article class="blog-post">
+    <header class="post-header">
+      <span class="category">{category}</span>
+      <h1>{title}</h1>
+      <time datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+    </header>
+    
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <div class="post-footer">
+      <p><em>Disclosure: Some links on this site are affiliate links. We may earn a commission if you make a purchase, at no extra cost to you. We only recommend tools we have tested and believe in.</em></p>
+    </div>
+  </article>
+
+  <!-- Schema: Article -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "datePublished": date,
+    "author": {
+      "@type": "Person",
+      "name": "AI Trading Tools"
+    }
+  })}></script>
+</Base>
